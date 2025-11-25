@@ -1,0 +1,112 @@
+<!doctype html>
+document.getElementById('addToCart').dataset.id = id;
+document.getElementById('modal').classList.add('open');
+}
+
+
+// Cart
+function addProduct(id, qty=1){
+const p = PRODUCTS.find(x=>x.id===id);
+if(!p){ showError('Produit introuvable pour ajout: ' + id); return; }
+const entry = CART.find(c=>c.id===id);
+if(entry) entry.qty += qty; else CART.push({id:p.id,name:p.name,price:p.price,img:p.img,qty});
+saveCart(); renderCart();
+}
+
+
+function renderCart(){
+cartListEl.innerHTML = '';
+if(CART.length===0){ cartListEl.innerHTML = '<div style="color:var(--muted)">Votre panier est vide.</div>';
+cartCountEl.textContent = 0; cartTotalEl.textContent = '0 €'; return }
+CART.forEach(item=>{
+const el = document.createElement('div'); el.className='cart-item';
+el.innerHTML = `\
+<img src="${item.img}" alt="${item.name}">\
+<div style="flex:1">\
+                <div style="font-weight:700">${item.name}</div>\
+                <div style="color:var(--muted);font-size:13px">${(item.price).toFixed(2)} €</div>\
+</div>\
+<div class="qty">\
+                <button class="outline btn-dec" data-id="${item.id}">-</button>\
+                <div class="qty-count">${item.qty}</div>\
+                <button class="outline btn-inc" data-id="${item.id}">+</button>\
+</div>`;
+cartListEl.appendChild(el);
+});
+cartListEl.querySelectorAll('.btn-inc').forEach(b=>b.addEventListener('click', e=>
+changeQty(Number(e.currentTarget.dataset.id), 1)));
+cartListEl.querySelectorAll('.btn-dec').forEach(b=>b.addEventListener('click', e=>
+changeQty(Number(e.currentTarget.dataset.id), -1)));
+
+
+const total = CART.reduce((s,i)=>s + i.price*i.qty, 0);
+cartTotalEl.textContent = total.toFixed(2) + ' €';
+cartCountEl.textContent = CART.reduce((s,i)=>s+i.qty,0);
+}
+
+
+function changeQty(id, delta){
+const it = CART.find(c=>c.id===id); if(!it) return;
+it.qty += delta; if(it.qty<=0) CART=CART.filter(c=>c.id!==id);
+                saveCart(); renderCart();
+                }
+
+
+                // Attach UI listeners
+                document.getElementById('closeModal').addEventListener('click',
+                ()=>document.getElementById('modal').classList.remove('open'));
+                document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id==='modal')
+                document.getElementById('modal').classList.remove('open')});
+                document.getElementById('addToCart').addEventListener('click',(e)=>{
+                const id = Number(e.currentTarget.dataset.id);
+                if(id) addProduct(id);
+                document.getElementById('modal').classList.remove('open');
+                });
+
+
+                document.querySelectorAll('.chip').forEach(ch=>ch.addEventListener('click', (e)=>{
+                const cat = e.currentTarget.dataset.cat; if(cat==='all') renderProducts(PRODUCTS); else
+                renderProducts(PRODUCTS.filter(p=>p.category===cat));
+                }));
+
+
+                document.getElementById('searchBtn').addEventListener('click', ()=>{
+                const q = document.getElementById('search').value.trim().toLowerCase();
+                if(!q) renderProducts(PRODUCTS); else renderProducts(PRODUCTS.filter(p=>p.name.toLowerCase().includes(q)
+                || p.desc.toLowerCase().includes(q)));
+                });
+                document.getElementById('search').addEventListener('keydown',(e)=>{ if(e.key==='Enter')
+                document.getElementById('searchBtn').click(); });
+
+
+                document.getElementById('sort').addEventListener('change',(e)=>{
+                const val = e.target.value; let arr = [...PRODUCTS];
+                if(val==='price-asc') arr.sort((a,b)=>a.price-b.price);
+                else if(val==='price-desc') arr.sort((a,b)=>b.price-a.price);
+                renderProducts(arr);
+                });
+
+
+                document.getElementById('openCart').addEventListener('click', ()=>{
+                document.querySelector('aside.sidebar').scrollIntoView({behavior:'smooth'});
+                });
+
+
+                document.getElementById('checkout').addEventListener('click', ()=>{
+                if(CART.length===0){ showError('Votre panier est vide.'); return }
+                alert('Passer la commande — Exemple : rediriger vers un paiement.');
+                CART = []; saveCart(); renderCart();
+                });
+
+
+                // Init
+                loadCart(); renderCart(); renderProducts(PRODUCTS);
+
+
+                // expose for debugging in console (optional)
+                window.__BF = {PRODUCTS, getCart: ()=>CART, addProduct, viewProduct};
+                })();
+                </script>
+                </body>
+
+                </html>
