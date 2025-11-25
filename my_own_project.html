@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Boutique Padel - HEAD, Siux, Wilson, Nox</title>
+                <link href="fonts.googleapis.com" rel="stylesheet">
+
+                <!-- Code CSS intégré -->
+                <style>
+                                :root {
+                                                --primary-color: #007bff;
+                                                /* Bleu vif */
+                                                --secondary-color: #ff5733;
+                                                /* Orange/Rouge */
+                                                --dark-color: #333;
+                                                --light-color: #f4f4f4;
+                                }
+
+                                * {
+                                                margin: 0;
+                                                padding: 0;
+                                                box-sizing: border-box;
+                                }
+
+                                body {
+                                                font-family: 'Poppins', sans-serif;
+                                                line-height: 1.6;
+                                                color: var(--dark-color);
+                                                background-color: var(--light-color);
+                                }
+
+                                a {
+                                                text-decoration: none;
+                                                color: var(--primary-color);
+                                }
+
+                                ul {
+                                                list-style: none;
+                                }
+
+                                .container {
+                                                max-width: 1200px;
+                                                margin: 0 auto;
+                                                padding: 0 2rem;
+                                }
+
+                                /* Navigation */
+                                .navbar {
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: center;
+                                                background: #fff;
+                                                padding: 1rem 0;
+                                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                }
+
+                                .logo {
+                                                font-size: 1.5rem;
+                                                font-weight: bold;
+                                }
+
+                                .nav-icons {
+                                                cursor: pointer;
+                                                position: relative;
+                                                font-weight: bold;
+                                                color: var(--dark-color);
+                                }
+
+                                #cart-count {
+                                                background-color: var(--secondary-color);
+                                                color: white;
+                                                border-radius: 50%;
+                                                padding: 0.1rem 0.4rem;
+                                                position: absolute;
+                                                top: -10px;
+                                                right: -10px;
+                                                font-size: 0.8rem;
+                                }
+
+                                /* Section Produits */
+                                .product-showcase {
+                                                padding: 2rem 0;
+                                }
+
+                                .product-grid {
+                                                display: grid;
+                                                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                                                gap: 1.5rem;
+                                }
+
+                                .product-card {
+                                                background: #fff;
+                                                padding: 1rem;
+                                                border-radius: 8px;
+                                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                                text-align: center;
+                                                transition: transform 0.3s ease;
+                                }
+
+                                .product-card:hover {
+                                                transform: translateY(-5px);
+                                }
+
+                                .product-card img {
+                                                width: 100%;
+                                                height: 200px;
+                                                object-fit: cover;
+                                                /* Assure que les images sont bien ajustées */
+                                                border-radius: 5px;
+                                                margin-bottom: 1rem;
+                                }
+
+                                .product-card h3 {
+                                                font-size: 1.2rem;
+                                                margin-bottom: 0.5rem;
+                                }
+
+                                .product-card .price {
+                                                font-weight: bold;
+                                                color: var(--secondary-color);
+                                                margin-bottom: 1rem;
+                                                font-size: 1.1rem;
+                                }
+
+                                .add-to-cart {
+                                                background: var(--dark-color);
+                                                color: #fff;
+                                                padding: 0.5rem 1rem;
+                                                border-radius: 5px;
+                                                border: none;
+                                                cursor: pointer;
+                                                transition: background 0.3s ease;
+                                                width: 100%;
+                                }
+
+                                .add-to-cart:hover {
+                                                background: var(--primary-color);
+                                }
+
+                                /* Panier Modal */
+                                .cart-modal {
+                                                display: none;
+                                                position: fixed;
+                                                z-index: 10;
+                                                left: 0;
+                                                top: 0;
+                                                width: 100%;
+                                                height: 100%;
+                                                background-color: rgba(0, 0, 0, 0.5);
+                                                overflow: auto;
+                                }
+
+                                .cart-content {
+                                                background-color: var(--light-color);
+                                                margin: 10% auto;
+                                                padding: 20px;
+                                                border: 1px solid #888;
+                                                width: 90%;
+                                                max-width: 500px;
+                                                border-radius: 10px;
+                                                position: relative;
+                                }
+
+                                .close-btn {
+                                                color: #aaa;
+                                                float: right;
+                                                font-size: 28px;
+                                                font-weight: bold;
+                                                cursor: pointer;
+                                }
+
+                                #cart-items-list li {
+                                                padding: 0.7rem 0;
+                                                border-bottom: 1px solid #ddd;
+                                                display: flex;
+                                                justify-content: space-between;
+                                                align-items: center;
+                                }
+
+                                #cart-total {
+                                                font-weight: bold;
+                                                margin-top: 1rem;
+                                                text-align: right;
+                                                font-size: 1.2rem;
+                                }
+
+                                .checkout-btn {
+                                                background-color: var(--secondary-color);
+                                                color: white;
+                                                padding: 1rem;
+                                                border: none;
+                                                width: 100%;
+                                                margin-top: 1rem;
+                                                border-radius: 5px;
+                                                cursor: pointer;
+                                                font-size: 1rem;
+                                }
+
+                                /* Pied de page */
+                                footer {
+                                                background: var(--dark-color);
+                                                color: #fff;
+                                                text-align: center;
+                                                padding: 2rem 0;
+                                                margin-top: 2rem;
+                                }
+                </style>
+</head>
+
+<body>
+
+                <!-- En-tête et navigation -->
+                <header>
+                                <nav class="navbar container">
+                                                <div class="logo">Padel <strong>Shop</strong></div>
+                                                <ul class="nav-links">
+                                                                <li><a href="#produits">Produits</a></li>
+                                                                <li><a href="#">Marques</a></li>
+                                                </ul>
+                                                <div class="nav-icons" onclick="toggleCartModal()">
+                                                                Panier (<span id="cart-count">0</span>)
+                                                </div>
+                                </nav>
+                </header>
+
+                <!-- Section principale (Produits) -->
+                <main class="container">
+                                <section id="produits" class="product-showcase">
+                                                <h2>Notre Sélection Premium</h2>
+                                                <div class="product-grid" id="product-grid">
+                                                                <!-- Les cartes produits seront générées ici par JavaScript -->
+                                                </div>
+                                </section>
+                </main>
+
+                <!-- Panier Modal -->
+                <div id="cartModal" class="cart-modal">
+                                <div class="cart-content">
+                                                <span class="close-btn" onclick="toggleCartModal()">&times;</span>
+                                                <h2>Votre Panier</h2>
+                                                <ul id="cart-items-list">
+                                                                <!-- Les articles du panier seront affichés ici -->
+                                                </ul>
+                                                <div id="cart-total">Total: 0.00 €</div>
+                                                <button class="checkout-btn"
+                                                                onclick="alert('Fonctionnalité de paiement à coder côté serveur !')">Commander</button>
+                                </div>
+                </div>
+
+                <!-- Pied de page -->
+                <footer>
+                                <div class="footer-content">
+                                                <p>&copy; 2025 Padel Shop. Tous droits réservés.</p>
+                                </div>
+                </footer>
+
+                <!-- Code JavaScript intégré -->
+                <script>
+                                // Données des produits (marques HEAD, Siux, etc.) avec URLs d'images réelles
+                                const products = [
+                                                { id: 1, name: "Raquette Head Graphene 360", brand: "HEAD", price: 219.99, image: "colizey.fr" },
+                                                { id: 2, name: "Raquette Siux Pegasus Revolution 2", brand: "Siux", price: 299.50, image: "www.streetpadel.com" },
+                                                { id: 3, name: "Chaussures Padel Wilson Rush Pro Ace", brand: "Wilson", price: 120.00, image: "cdn.shopify.com" },
+                                                { id: 4, name: "Balles Padel Head Pro S (Boite x3)", brand: "HEAD", price: 6.99, image: "www.padelhouse.ma" },
+                                                { id: 5, name: "Sac de Padel Siux", brand: "Siux", price: 85.00, image: "via.placeholder.com" },
+                                                { id: 6, name: "Grip Bullpadel", brand: "Bullpadel", price: 3.50, image: "via.placeholder.com" },
+                                                { id: 7, name: "Raquette Nox ML10 Pro Cup", brand: "Nox", price: 180.00, image: "via.placeholder.com" },
+                                                { id: 8, name: "Anti-vibrateur Shock Out", brand: "Shock Out", price: 15.00, image: "via.placeholder.com" }
+                                ];
+
+                                let cart = []; // Le panier d'achat stocké côté client
+
+                                // Fonction pour afficher les produits
+                                function displayProducts() {
+                                                const grid = document.getElementById('product-grid');
+                                                products.forEach(product => {
+                                                                const card = document.createElement('div');
+                                                                card.classList.add('product-card');
+                                                                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>Marque: ${product.brand}</p>
+                    <p class="price">${product.price.toFixed(2)} €</p>
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">Ajouter au panier</button>
+                `;
+                                                                grid.appendChild(card);
+                                                });
+                                }
+
+                                // Fonction pour ajouter un article au panier
+                                function addToCart(productId) {
+                                                const product = products.find(p => p.id === productId);
+                                                const cartItem = cart.find(item => item.id === productId);
+
+                                                if (cartItem) {
+                                                                cartItem.quantity++;
+                                                } else {
+                                                                cart.push({ ...product, quantity: 1 });
+                                                }
+                                                updateCartCount();
+                                }
+
+                                // Fonction pour mettre à jour l'affichage du panier et le total
+                                function updateCartDisplay() {
+                                                const cartList = document.getElementById('cart-items-list');
+                                                cartList.innerHTML = '';
+                                                let total = 0;
+
+                                                cart.forEach(item => {
+                                                                const li = document.createElement('li');
+                                                                const itemTotal = item.price * item.quantity;
+                                                                total += itemTotal;
+                                                                li.innerHTML = `
+                    <span>${item.name} (${item.quantity}x)</span>
+                    <span>${itemTotal.toFixed(2)} €</span>
+                `;
+                                                                cartList.appendChild(li);
+                                                });
+
+                                                document.getElementById('cart-total').textContent = `Total: ${total.toFixed(2)} €`;
+                                                updateCartCount();
+                                }
+
+                                // Met à jour seulement le compteur dans la navbar
+                                function updateCartCount() {
+                                                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                                                document.getElementById('cart-count').textContent = totalItems;
+                                }
+
+                                // Fonction pour ouvrir/fermer le modal du panier
+                                function toggleCartModal() {
+                                                const modal = document.getElementById('cartModal');
+                                                if (modal.style.display === "block") {
+                                                                modal.style.display = "none";
+                                                } else {
+                                                                modal.style.display = "block";
+                                                                updateCartDisplay(); // Mettre à jour le contenu quand on l'ouvre
+                                                }
+                                }
+
+                                // Initialisation au chargement de la page
+                                window.onload = displayProducts;
+                </script>
+</body>
+
+</html>
