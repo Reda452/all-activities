@@ -162,6 +162,50 @@
                 <div class="footer">
                                 <p>&copy; 2025 Mon Site de Vente. Tous droits réservés.</p>
                 </div>
+<script>
+                // Fonction ajouter au panier
+                const buttons = document.querySelectorAll(".product-card button");
+
+                buttons.forEach((button, index) => {
+                                button.addEventListener("click", () => {
+                                                const productCard = button.parentElement;
+                                                const name = productCard.querySelector("h3").innerText;
+                                                const price = productCard.querySelector(".price").innerText;
+
+                                                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+                                                cart.push({ name, price });
+
+                                                localStorage.setItem("cart", JSON.stringify(cart));
+
+                                                alert(name + " a été ajouté au panier !");
+                                });
+                });
+
+                // Navigation Navbar
+                const links = document.querySelectorAll(".navbar a");
+
+                links.forEach(link => {
+                                link.addEventListener("click", (e) => {
+                                                e.preventDefault();
+
+                                                const text = link.innerText;
+
+                                                if (text === "Panier") {
+                                                                window.location.href = "panier.html";
+                                                }
+                                                else if (text === "Connexion") {
+                                                                window.location.href = "connexion.html";
+                                                }
+                                                else if (text === "Produits") {
+                                                                document.querySelector(".container").scrollIntoView({ behavior: "smooth" });
+                                                }
+                                                else if (text === "Accueil") {
+                                                                window.scrollTo({ top: 0, behavior: "smooth" });
+                                                }
+                                });
+                });
+</script>
 
 </body>
 
