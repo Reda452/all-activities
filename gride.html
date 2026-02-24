@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Grid Full Example</title>
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        /* Grid container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 equal columns */
+            grid-template-rows: auto;
+            gap: 20px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Grid items */
+        .grid-item {
+            background: #3498db;
+            color: white;
+            font-size: 24px;
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .grid-item:nth-child(2) {
+            background: #2ecc71;
+        }
+
+        .grid-item:nth-child(3) {
+            background: #e74c3c;
+        }
+
+        .grid-item:nth-child(4) {
+            background: #9b59b6;
+        }
+
+        .grid-item:nth-child(5) {
+            background: #f39c12;
+        }
+
+        .grid-item:nth-child(6) {
+            background: #1abc9c;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="grid-container">
+        <div class="grid-item">Item 1</div>
+        <div class="grid-item">Item 2</div>
+        <div class="grid-item">Item 3</div>
+        <div class="grid-item;">Item 4</div>
+        <div class="grid-item">Item 5</div>
+        <div class="grid-item">Item 6</div>
+    </div>
+
+</body>
+
+</html>
